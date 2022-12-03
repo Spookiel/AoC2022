@@ -5,44 +5,46 @@ import Data.Char (ord)
 import Utils
 
 
+toRSP :: Char -> Int
+toRSP a 
+    | a `elem` "ABC" = ord a - ord 'A'
+    | otherwise = ord a - ord 'X'
+
 points :: Char -> Char -> Int
---points a b = ((ord a + ord b) `mod` 3) * 3
+points a b = case (toRSP a - toRSP b) `mod` 3 of
+    0 -> 3
+    1 -> 0
+    2 -> 6
 
-points 'A' 'X' = 3
--- 0 0 = 3
-points 'A' 'Y' = 6
--- 0 1 = 6
 
-points 'A' 'Z' = 0
--- 0 2 = 0
+need :: Char -> Char -> Int
+need a 'Y' = toRSP a + 1
+need a 'X' = (toRSP a - 1) `mod` 3 + 1
+need a 'Z' = (toRSP a + 1) `mod` 3 + 1
 
-points 'B' 'X' = 0
--- 1 0 = 0
-points 'B' 'Y' = 3
--- 1 1 = 3
-points 'B' 'Z' = 6
---1 2 = 6
-
-points 'C' 'X' = 6
---2 0 = 6
-points 'C' 'Y' = 0
--- 2 1 = 0
-points 'C' 'Z' = 3
--- 2 2 = 3
-
-point :: Char -> Int
-point a = ord a - ord 'X' +1
+res :: Char -> Int
+res 'Y' = 3
+res 'Z' = 6
+res 'X' = 0
 
 --day2Part1 :: IO ()
+
+parseDay2 s = [(a,b) |  x <- map words $ lines s, let [a,b] = map head $ take 2 x]
+
 day2Part1 = do
     inp <- readFile "inputs/Day2.in"
 
-    let ans = [points a b + point b | x <- map words $ lines inp, let [a,b] = map head $ take 2 x]
-
+    let ans = [points a b + toRSP b + 1| (a,b) <- parseDay2 inp]
+    --print ans
     print $ sum ans
 
 --day2Part2 :: IO ()
-day2Part2 = undefined
+day2Part2 = do
+    inp <- readFile "inputs/Day2.in"
+
+    let ans = [res b + need a b| (a,b) <- parseDay2 inp]
+
+    print $ sum ans
 
 --day2 :: IO ()
 day2 = solveDay day2Part1 day2Part2 2
