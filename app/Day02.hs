@@ -27,23 +27,17 @@ res 'Y' = 3
 res 'Z' = 6
 res 'X' = 0
 
---day2Part1 :: IO ()
-
+parseDay2 :: String -> [(Char, Char)]
 parseDay2 s = [(a,b) |  x <- map words $ lines s, let [a,b] = map head $ take 2 x]
 
 day2Part1 = do
     inp <- readFile "inputs/Day2.in"
-
     let ans = [points a b + toRSP b + 1| (a,b) <- parseDay2 inp]
-    --print ans
     print $ sum ans
 
---day2Part2 :: IO ()
 day2Part2 = do
     inp <- readFile "inputs/Day2.in"
-
     let ans = [res b + need a b| (a,b) <- parseDay2 inp]
-
     print $ sum ans
 
 --day2 :: IO ()
