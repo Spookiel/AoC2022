@@ -3,6 +3,12 @@ import Data.List (groupBy, sort)
 import Data.List.Split (splitOn)
 
 
+
+
+safeHead :: [a] -> Maybe a
+safeHead [] = Nothing
+safeHead (x:xs) = Just x
+
 --splitDoubleNewLine :: String -> [String]
 splitDoubleNewLine s =  filter (/=[""]) ans
     where
@@ -22,12 +28,11 @@ splitOnCharAux delim (x:xs) acc
     | otherwise = splitOnCharAux delim xs (x:acc)
 
 solveDay p1 p2 dayNum= do
-    putStrLn "--------------"
     putStrLn ("     DAY " ++ show dayNum ++ "     ")
     putStrLn "--------------"
-    putStrLn  "----PART 1----"
+    putStr  "part1: "
     p1
-    putStrLn "----PART 2----"
+    putStr "part2: "
     p2
     putStrLn "--------------"
     

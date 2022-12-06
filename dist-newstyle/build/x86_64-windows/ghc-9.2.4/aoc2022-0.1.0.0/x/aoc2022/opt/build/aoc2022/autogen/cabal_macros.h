@@ -20,6 +20,16 @@
   (major1) == 4 && (major2) <  16 || \
   (major1) == 4 && (major2) == 16 && (minor) <= 3)
 #endif /* MIN_VERSION_base */
+/* package ilist-0.4.0.1 */
+#ifndef VERSION_ilist
+#define VERSION_ilist "0.4.0.1"
+#endif /* VERSION_ilist */
+#ifndef MIN_VERSION_ilist
+#define MIN_VERSION_ilist(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  4 || \
+  (major1) == 0 && (major2) == 4 && (minor) <= 0)
+#endif /* MIN_VERSION_ilist */
 /* package split-0.2.3.5 */
 #ifndef VERSION_split
 #define VERSION_split "0.2.3.5"

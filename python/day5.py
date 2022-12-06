@@ -1,6 +1,7 @@
 
 
-data = """[Q] [J]                         [H]
+data = """
+[Q] [J]                         [H]
 [G] [S] [Q]     [Z]             [P]
 [P] [F] [M]     [F]     [F]     [S]
 [R] [R] [P] [F] [V]     [D]     [L]
@@ -527,50 +528,25 @@ move 1 from 1 to 2"""
 
 trow = "[C] [H] [H] [T] [D] [L] [M] [B] [B]"
 
-def parse(row):
-    got = []
-    g = 1
-    cspaces = 0
 
-    i = 0
-    while i < len(row):
-        if row[i] == " ":
-            cspaces += 1
-            if cspaces == 4:
-                g += 1
-                cspaces = 0
-            i += 1
+def build_stacks(lines):
+    stacks = [[] for _ in range(10)]
+    for r in lines[:-1]:
+        for (i,j) in enumerate(r[1::4], 1):
+            if j != " ":
+                stacks[i].insert(0,j)        
+    return stacks
 
-        else:
-            if row[i+1] != " ":
-                got.append((row[i+1], g))
-            i += 3
-            cspaces = 0
-            g += 1
-    print(got)
-    return got
-parse(trow)
-import re
 def solve(data):
     a,b = data.split("\n\n")
     lines = b.splitlines()
     a = a.splitlines()
-    rows = [parse(r) for r in a]
-    stacks = [[] for i in range(10)]
-    for r in rows:
-        for b in r:
-            stacks[b[1]].append(b[0])
+    stacks = build_stacks(a)
 
-
-    for i in range(len(stacks)):
-        stacks[i] = stacks[i][::-1]
 
     for move in lines:
         l = move.split()
-        a,b,c = l[1], l[3], l[5]
-        a = int(a)
-        b = int(b)
-        c = int(c)
+        a,b,c = map(int, [l[1], l[3], l[5]])
 
         for box in range(a):
             stacks[c].append(stacks[b].pop(-1))
@@ -579,7 +555,7 @@ def solve(data):
         for i in stacks:
             if i:
                 ans += i[-1]
-        print(ans)
+    print(ans)
 
 
 
@@ -588,41 +564,28 @@ def solve2(data):
     a,b = data.split("\n\n")
     lines = b.splitlines()
     a = a.splitlines()
-    rows = [parse(r) for r in a]
-    stacks = [[] for i in range(10)]
-    for r in rows:
-        for b in r:
-            stacks[b[1]].append(b[0])
-
-
-    for i in range(len(stacks)):
-        stacks[i] = stacks[i][::-1]
-
+    stacks = build_stacks(a)
     for move in lines:
         l = move.split()
-        a,b,c = l[1], l[3], l[5]
-        a = int(a)
-        b = int(b)
-        c = int(c)
+        a,b,c = map(int,[l[1], l[3], l[5]])
 
         stacks[c].extend(stacks[b][-a:])
 
         for i in range(a):
             stacks[b].pop(-1)
-        print(stacks[c], stacks[b][-a:])
-        print(stacks)
+
         ans = ""
         for i in stacks:
             if i:
                 ans += i[-1]
-        print(ans)
+    print(ans)
 
 
 
 
 
 
-#solve(data)
+solve(data)
 solve2(data)
 
 

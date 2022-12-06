@@ -19,16 +19,16 @@ maintainer:         luke.moran2004@gmail.com
 -- A copyright notice.
 -- copyright:
 -- category:
-extra-source-files: CHANGELOG.md, Utils.hs, Day01.hs
+extra-source-files: CHANGELOG.md, Utils.hs, Day01.hs,Day02.hs,Day03.hs,Day04.hs, Day05.hs
 
 executable aoc2022
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules: Day01, Utils, Day02
+    other-modules: Day01, Utils, Day02, Day03, Day04, Day05
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:    base ^>=4.16.3.0, split
+    build-depends:    base ^>=4.16.3.0, split, ilist
     hs-source-dirs:   app
     default-language: Haskell2010
