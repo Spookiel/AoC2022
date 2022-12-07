@@ -6,6 +6,10 @@ import Day04
 import Day05
 import Utils
 import Data.Char (ord)
+import ParserTest
+
+{-# LANGUAGE OverloadedStrings#-}
+
 --import Data.List.Split (splitOn)
 
 main :: IO ()
