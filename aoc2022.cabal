@@ -25,10 +25,10 @@ executable aoc2022
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules: Day01, Utils, Day02, Day03, Day04, Day05
+    other-modules: Day01, Utils, Day02, Day03, Day04, Day05, Day06, Day07
 
     -- LANGUAGE extensions used by modules in this package.
     other-extensions: OverloadedStrings
-    build-depends:    base ^>=4.16.3.0, split, ilist, text, attoparsec,
+    build-depends:    base ^>=4.16.3.0, split, ilist, text, containers
     hs-source-dirs:   app
     default-language: Haskell2010

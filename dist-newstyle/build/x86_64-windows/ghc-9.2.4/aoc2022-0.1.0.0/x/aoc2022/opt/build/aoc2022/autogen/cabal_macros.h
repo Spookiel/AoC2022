@@ -10,16 +10,6 @@
   (major1) == 0 && (major2) <  1 || \
   (major1) == 0 && (major2) == 1 && (minor) <= 0)
 #endif /* MIN_VERSION_aoc2022 */
-/* package attoparsec-0.14.4 */
-#ifndef VERSION_attoparsec
-#define VERSION_attoparsec "0.14.4"
-#endif /* VERSION_attoparsec */
-#ifndef MIN_VERSION_attoparsec
-#define MIN_VERSION_attoparsec(major1,major2,minor) (\
-  (major1) <  0 || \
-  (major1) == 0 && (major2) <  14 || \
-  (major1) == 0 && (major2) == 14 && (minor) <= 4)
-#endif /* MIN_VERSION_attoparsec */
 /* package base-4.16.3.0 */
 #ifndef VERSION_base
 #define VERSION_base "4.16.3.0"
@@ -30,6 +20,16 @@
   (major1) == 4 && (major2) <  16 || \
   (major1) == 4 && (major2) == 16 && (minor) <= 3)
 #endif /* MIN_VERSION_base */
+/* package containers-0.6.5.1 */
+#ifndef VERSION_containers
+#define VERSION_containers "0.6.5.1"
+#endif /* VERSION_containers */
+#ifndef MIN_VERSION_containers
+#define MIN_VERSION_containers(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  6 || \
+  (major1) == 0 && (major2) == 6 && (minor) <= 5)
+#endif /* MIN_VERSION_containers */
 /* package ilist-0.4.0.1 */
 #ifndef VERSION_ilist
 #define VERSION_ilist "0.4.0.1"
