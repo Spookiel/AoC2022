@@ -6,6 +6,7 @@ import Day04
 import Day05
 import Day06
 import Day07
+import Day08
 import Utils
 import Data.Char (ord)
 
@@ -23,3 +24,4 @@ main = do
     day5
     day6
     day7
+    day8

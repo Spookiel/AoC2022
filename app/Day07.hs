@@ -3,6 +3,7 @@ module Day07 where
 import Data.List
 import Data.Char
 import Data.Maybe
+import Debug.Trace
 import Data.Map (Map)
 import qualified Data.Map as Map
 import Data.Either
@@ -44,14 +45,26 @@ buildTree (c:cs) cpath = case c of
 buildTree [] cpath = Map.empty
 
 
-sumTree :: Map [String] [(Int, String)] -> Int
-sumTree tree = sumTreeHelper ["d"] where
+dirSizes :: Map [String] [(Int, String)] -> [Int]
+dirSizes tree = sumTree tree (<= 100000000)
 
-    --sumTreeHelper :: [String] -> [Int]
-    sumTreeHelper cpath = [if(size == -1) then sumTreeHelper (cpath ++ [name]) else size | (size, name) <- Map.findWithDefault [] cpath tree]
+
+sumTree :: Map [String] [(Int, String)] -> (Int -> Bool) -> [Int]
+sumTree tree comp = fst $ sumTreeHelper [] where
+
+    sumTreeHelper :: [String] -> ([Int], Int)
+    sumTreeHelper cpath = (lt, dsize) 
+        where 
+            sss = [if(size == -1) then sumTreeHelper (cpath ++ [name]) else ([],size) | (size, name) <- Map.findWithDefault [] cpath tree]
+            dsize = sum $ map snd sss
+            
+            lt = filter comp (dsize:(concatMap fst sss))
+            
 
 parse :: String -> [Either Command LineOut]
 parse s = Data.List.map parseLine $ lines s
+
+
 
 
 
@@ -59,15 +72,23 @@ day7Part1 = do
     inp <- readFile "inputs/day7.in"
     let parsed = parse inp
 
+    let comp x = x <= 100000
 
     let m = buildTree parsed []
 
-    --print $ Map.findWithDefault [(0,"fail")] ["a"]  m
-    print m
-    print $ sumTree m
+    print $ sum $ sumTree m comp
 
 
 
-day7Part2 = undefined
+day7Part2 = do
+    inp <- readFile "inputs/Day7.in"
+    let parsed = parse inp
+    let m = buildTree parsed []
+
+    let tsize = head $ dirSizes m
+    let comp x = tsize - x <= 40000000
+
+    print $ minimum $ sumTree m comp
+
 
 day7 = solveDay day7Part1 day7Part2 7
