@@ -21,7 +21,7 @@ parseCommand args
 
 parseLineOut :: [String] -> LineOut
 parseLineOut [a,b]
-    | a == "dir" = Dir $ b
+    | a == "dir" = Dir b
     | otherwise = File (read a) b
 
 
@@ -34,8 +34,8 @@ parseLine s
 
 buildTree :: [Either Command LineOut] -> [String] -> Map [String] [(Int, String)]
 buildTree (c:cs) cpath = case c of 
-    Right (File size name) -> Map.insertWith (++) (cpath) [(size, name)] nmap
-    Right (Dir name) -> Map.insertWith (++) (cpath) [(-1, name)] nmap
+    Right (File size name) -> Map.insertWith (++) cpath [(size, name)] nmap
+    Right (Dir name) -> Map.insertWith (++) cpath [(-1, name)] nmap
     Left (Cd "..") -> buildTree cs (init cpath)
     Left (Cd "/") -> buildTree cs []
     Left (Cd name) -> buildTree cs (cpath ++ [name])
